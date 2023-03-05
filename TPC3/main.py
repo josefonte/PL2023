@@ -1,3 +1,4 @@
+import json
 import re
 
 f = open("processos.txt","r")
@@ -132,20 +133,33 @@ def perguntaC():
 
 
 def perguntaD():
-    er2 = re.compile(",(?P<rel>[a-zA-Z ]+)\.(\s+)?Proc.")
-    relacion = dict()
+    with open('processos.txt', 'r') as file:
+        output = []
+        for i in range(20):
+            line = file.readline().strip()
+            if not line:
+                break  
+            pattern = r'^(\d+)::(\d{4}-\d{2}-\d{2})::([^:]*?)::([^:]*?)::([^:]*?)::([^:]*?)::$'
+            match = re.match(pattern, line)
+            if match:
+                item = {
+                    'id': match.group(1),
+                    'data': match.group(2),
+                    'nome': match.group(3),
+                    'pai': match.group(4),
+                    'mae': match.group(5),
+                    'obs': match.group(6).split(',')
+                }
+                output.append(item)
 
-    for line in f:
-        parser = er1.fullmatch(line)
-        if parser :
-            continue
-
-
+    with open('output.json', 'w') as file:
+        json.dump(output, file, indent=4)
 
 def main():
     #perguntaA()
     #perguntaB()
-    perguntaC()
+    #perguntaC()
+    perguntaD()
 
 
 main()
