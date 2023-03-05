@@ -108,15 +108,37 @@ def perguntaB():
             
 
 def perguntaC():
-    er2 = re.compile(",(?P<rel>[a-zA-Z ]+).")
+    er2 = re.compile(",(?P<rel>[a-zA-Z ]+)\.(\s+)?Proc.")
+    relacion = dict()
+
     for line in f:
         parser = er1.fullmatch(line)
         if parser :
             extra = parser.group("extra")
             if extra:
-                print(extra)
-                print(er2.findall(extra))
+                rels = er2.findall(extra)
+                for coiso,_ in rels:
+                    #print(coiso)
+                    if coiso in relacion:
+                        relacion[coiso] +=1
+                    else:
+                        relacion[coiso] =1
 
+    relacion2 = dict(sorted(relacion.items(), key=lambda x:x[1]))
+    print("$$$$$$$$$$$$$$$Pergunta C")
+    for a in relacion2.items():
+        rel,freq = a
+        print(rel + " : " + str(freq))
+
+
+def perguntaD():
+    er2 = re.compile(",(?P<rel>[a-zA-Z ]+)\.(\s+)?Proc.")
+    relacion = dict()
+
+    for line in f:
+        parser = er1.fullmatch(line)
+        if parser :
+            continue
 
 
 
