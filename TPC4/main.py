@@ -35,17 +35,18 @@ for line in f:
             jitem[keys[3]] = []
         
         valor=0
-        
+        xval=1
         for i in range(nValores):
             v = values[i+3].strip()
             if tipo in ['media','sum']:
                 valor += int(v)
-                if i == int(nValores)-1 and tipo =='media':
-                    valor /= nValores    
+                if i == nValores-1 and tipo =='media':
+                    valor /= xval    
                 jitem[keys[3]+"_"+tipo] = valor
+                xval += 1
             else:
                 jitem[keys[3]].append(item)
-
+        print(jitem)
         jsonOutput.append(jitem)
         
     c+=1
