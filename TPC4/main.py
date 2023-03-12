@@ -32,13 +32,13 @@ for line in f:
                 }
       
         for item in values[3:]:
+            item = item.strip()
             jitem[keys[3]].append(item)
+    
         print(jitem)
-        jsonOutput.append(item)
+        jsonOutput.append(jitem)
         
     c+=1
-
-
 
 with open('output.json', 'w') as file:
         json.dump(jsonOutput, file, indent=4)
